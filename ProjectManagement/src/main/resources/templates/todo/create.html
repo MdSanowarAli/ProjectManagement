@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>ToDo</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-offset-3 col-md-6">
+			<br /> <br /> <br /> <br />
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">New To Do</h3>
+				</div>
+				<form class="form-horizontal" data-validator="validator"
+					th:action="@{/todo/saveContact}" enctype="multipart/form-data"
+					th:object="${todo}" method="POST" id="companyFrom">
+
+
+					<div class="box-body">
+						<div class="form-group selectAll">
+							<label class="control-label col-md-4">User ID</label>
+							<div class="col-md-7">
+								<!-- <input type="text" id="_projectId"
+									class="typeahead form-control text-box single-line" /> <input
+									type="hidden" name="userId" th:field="*{userId}" id="userId"
+									class="required" /> -->
+								<select style="height: 32px; width: 100%;" th:field="*{userId}">
+									<option value="0">Select</option>
+									<option th:each="u : ${user}" th:value="${u.id}"
+										th:text="${u.userId}">00</option>
+								</select>
+
+							</div>
+						</div>
+						<div class="form-group selectAll">
+							<label class="control-label col-md-4">Project ID</label>
+							<div class="col-md-7">
+								<select style="height: 32px; width: 100%;"
+									th:field="*{projectId}">
+									<option value="0">Select</option>
+									<option th:each="p : ${project}" th:value="${p.id}"
+										th:text="${p.projectId}">00</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4">Start Date</label>
+							<div class="col-md-7">
+								<input type="text" th:field="*{startDate}"
+									class="date-picker form-control text-box single-line required" />
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label class="control-label col-md-4">End Date</label>
+							<div class="col-md-7">
+								<input type="text" th:field="*{endDate}"
+									class="date-picker form-control text-box single-line" />
+							</div>
+						</div> -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Note</label>
+							<div class="col-md-7">
+								<textarea class="form-control text-box single-line " rows="2"
+									th:field="*{note}" cols=""></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<div class="col-md-4"></div>
+						<button type="submit" value="Create" class="btn btn-success">
+							<i class="fa fa-check"></i> Submit
+						</button>
+						|
+						<button type="button" value="Reset"
+							onclick="ResetInputs('.box-body');" class="btn btn-primary">
+							<i class="fa fa-refresh"></i> Reset
+						</button>
+						| <a href="/todo" class="btn btn-primary"><i
+							class="fa fa-arrow-left"></i> Back to List</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<footer></footer>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var patientIds = new Object();
+		$(function() {
+			$('.date-picker').datepicker('setDate', new Date());
+
+			initFormSubmit();
+			InitErrorChange();
+		});
+		function validator() {
+			$('#userId').val(userIds[$("#_userId").val()]);
+			var val = parseInt($('#userId').val());
+			if (isNaN(val) || val <= 0) {
+				$("#_userId").val('');
+				$('#userId').val('');
+			}
+			$('#projectId').val(projectIds[$("#_projectId").val()]);
+			val = parseInt($('#projectId').val());
+			if (isNaN(val) || val <= 0) {
+				$("#_projectId").val('');
+				$('#projectId').val('');
+			}
+
+			return CheckRequired();
+		}
+		$("#selectAll").on(
+				'click',
+				function() {
+					$(
+							".selectAll option[value='"
+									+ $(".selectForAll").val() + "']").prop(
+							'selected', true);
+				});
+		/*]]>*/
+	</script>
+
+</th:block>
+</html>

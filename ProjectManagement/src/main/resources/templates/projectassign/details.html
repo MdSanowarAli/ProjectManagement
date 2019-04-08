@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>Project Assignment</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Project Assign Details</h3>
+				</div>
+
+				<div class="box-body">
+					<dl class="dl-horizontal">
+						<dt>User ID:</dt>
+						<dd th:text="${projectassign.user.userId}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>User Name:</dt>
+						<dd th:text="${projectassign.user.firstName}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Project ID:</dt>
+						<dd th:text="${projectassign.project.projectId}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Project Name:</dt>
+						<dd th:text="${projectassign.project.shortName}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Start Date:</dt>
+						<dd th:text="${projectassign.project.startDate}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Assign Date:</dt>
+						<dd th:text="${projectassign.assignDate}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Estimated End Date:</dt>
+						<dd th:text="${projectassign.estimatedEndDate}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Actual End Date:</dt>
+						<dd th:text="${projectassign.actualEndDate}"></dd>
+					</dl>
+					
+					<dl class="dl-horizontal">
+						<dt>Status:</dt>
+						<dd th:text="${projectassign.status}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Note:</dt>
+						<dd th:text="${projectassign.note}"></dd>
+					</dl>
+					
+				</div>
+				<div class="box-footer">
+					<div class="col-md-4"></div>
+					<a href="/projectassign/create" class="btn btn-primary"><i
+						class="fa fa-plus" aria-hidden="true"></i> Add New</a> | <a
+						th:href="@{/projectassign/create(Id= ${projectassign.id})}"
+						class="btn btn-primary"><i class="fa fa-pencil-square-o"
+						aria-hidden="true"></i> Edit</a> | <a href="/projectassign"
+						class="btn btn-primary"><i class="fa fa-arrow-left"
+						aria-hidden="true"></i> Back to List</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<footer></footer>
+<script>
+	
+</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>User</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">User Details</h3>
+				</div>
+				<div class="box-body">
+					<dl class="dl-horizontal">
+						<dt>User Name:</dt>
+						<dd th:text="${user.userId}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>First Name:</dt>
+						<dd th:text="${user.firstName}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Last Name:</dt>
+						<dd th:text="${user.lastName}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Title:</dt>
+						<dd th:text="${user.title}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Contact Number:</dt>
+						<dd th:text="${user.contactPhNo}"></dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt>Email:</dt>
+						<dd th:text="${user.emailId}"></dd>
+					</dl>
+				</div>
+				<div class="box-footer">
+					<div class="col-md-4"></div>
+					<a href="/user/create" class="btn btn-primary"><i
+						class="fa fa-plus" aria-hidden="true"></i> Add New</a> | <a
+						th:href="@{/user/create(Id= ${user.id})}" class="btn btn-primary"><i
+						class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> | <a
+						href="/user" class="btn btn-primary"><i
+						class="fa fa-arrow-left" aria-hidden="true"></i> Back to List</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<footer></footer>
+<script>
+	
+</script>
+</html>

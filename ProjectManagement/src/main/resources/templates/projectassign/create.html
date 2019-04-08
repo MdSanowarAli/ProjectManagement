@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>Project Assignment</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-offset-3 col-md-6">
+			<br />
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">New Project Assign</h3>
+				</div>
+				<form class="form-horizontal" data-validator="validator"
+					th:action="@{/projectassign/saveContact}"
+					enctype="multipart/form-data" th:object="${projectassign}"
+					method="POST" id="companyFrom">
+
+					<div class="box-body">
+						<!-- <div class="form-group">
+										<label class="control-label col-md-5">Issue Code </label>
+										<div class="col-md-7">
+											<input type="text" id="_userId" th:field="*{user.userId}"
+									class="typeahead form-control text-box single-line" /> <input
+									type="hidden" name="userId" th:field="*{userId}" id="userId"
+									class="required" />
+										</div>
+							</div> -->
+
+						<div class="form-group selectAll">
+							<label class="control-label col-md-4">User ID</label>
+							<div class="col-md-7">
+								<select style="height: 32px; width: 100%;" th:field="*{userId}">
+									<option value="0">Select</option>
+									<option th:each="u : ${user}" th:value="${u.id}"
+										th:text="${u.userId}" id="userId">00</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- <div class="form-group">
+								<label class="control-label col-md-4">User Name</label>
+								<div class="col-md-7" >
+									<input type="text" id="IssueDescription"
+										th:field="*{user.firstName}" readonly="readonly"
+										class="form-control text-box single-line required" />
+								</div>
+							</div> -->
+
+						<div class="form-group selectAll">
+							<label class="control-label col-md-4">Project ID</label>
+							<div class="col-md-7">
+								<select style="height: 32px; width: 100%;"
+									th:field="*{projectId}">
+									<option value="0">Select</option>
+									<option th:each="p : ${project}" th:value="${p.id}"
+										th:text="${p.projectId}">00</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Estimated End Date</label>
+							<div class="col-md-7">
+								<input type="text" th:field="*{estimatedEndDate}"
+									class="date-picker form-control text-box single-line required" />
+							</div>
+						</div>
+
+						<!-- <div class="form-group">
+								<label class="control-label col-md-4">Actual End Date</label>
+								<div class="col-md-7">
+									<input type="text" th:field="*{actualEndDate}"
+										class="date-picker form-control text-box single-line" />
+								</div>
+							</div> -->
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Status</label>
+							<div class="col-md-7">
+								<select th:field="*{status}" class="form-control">
+									<option value="">Select</option>
+									<option value="Open">Open</option>
+									<option value="Doing">Doing</option>
+									<option value="On Hold">OnHold</option>
+									<option value="QA">QA</option>
+									<option value="Close">Close</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Note</label>
+							<div class="col-md-7">
+								<textarea class="form-control text-box single-line " rows="2"
+									th:field="*{note}" cols=""></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<div class="col-md-4"></div>
+						<button type="submit" value="Create" class="btn btn-success">
+							<i class="fa fa-check"></i> Submit
+						</button>
+						|
+						<button type="button" value="Reset"
+							onclick="ResetInputs('.box-body');" class="btn btn-primary">
+							<i class="fa fa-refresh"></i> Reset
+						</button>
+						| <a href="/projectassign" class="btn btn-primary"><i
+							class="fa fa-arrow-left"></i> Back to List</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<footer></footer>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		/* var fName = new Array();
+		var lName = new Array();
+		var uIds = new Object(); */
+		/* var patientIds = new Object(); */
+		$(function() {
+		
+			$('.date-picker').datepicker('setDate', new Date());
+
+			initFormSubmit();
+			InitErrorChange();
+		});
+		function validator() {
+			$('#userId').val(uIds[$("#_userId").val()]);
+			var val = parseInt($('#userId').val());
+			if (isNaN(val) || val <= 0) {
+				$("#_userId").val('');
+				$('#userId').val('');
+			}
+			/*  $('#projectId').val(projectIds[$("#_projectId").val()]);
+			val = parseInt($('#projectId').val());
+			if (isNaN(val) || val <= 0) {
+				$("#_projectId").val('');
+				$('#projectId').val('');
+			} */
+
+			return CheckRequired();
+		}
+		$("#selectAll").on(
+				'click',
+				function() {
+					$(
+							".selectAll option[value='"
+									+ $(".selectForAll").val() + "']").prop(
+							'selected', true);
+				});
+/* 		function _loadIssue() {
+			$("#_userId")
+					.typeahead(
+							{
+								source : function(query, result) {
+									$
+											.ajax({
+												url : "/api/user",
+												data : {
+													'query' : query
+												},
+												dataType : "json",
+												type : "GET",
+												success : function(data) {
+													result($
+															.map(
+																	data,
+																	function(
+																			item) {
+																		
+																		fName[item.userId] = item.firstName;
+																		//lName[item.userId] = item.lastName;
+																		//uIds[item.userId] = item.id;
+																		return item.userId;
+																	}));
+												}
+											});
+								},
+								updater : function(e) {
+									$('#firstName').val(firstName[e]);
+									//$('#lastName').val(lastName[e]);
+									//$('#userId').val(userIds[e]);
+									return e;
+								}
+							});
+		} */
+		/*]]>*/
+	</script>
+</th:block>
+</html>

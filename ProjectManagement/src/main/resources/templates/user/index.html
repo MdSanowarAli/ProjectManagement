@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>User</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-12">
+			<div class="box">
+				<div class="box-header">
+					<p>
+						<a href="/user/create" class="btn btn-primary"><i
+							class="fa fa-plus" aria-hidden="true"></i> Create New</a>
+					</p>
+					<h3 class="box-title">User List</h3>
+				</div>
+				<div class="box-body">
+					<table id="table1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>User Name</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Title</th>
+								<th>Contact Ph. No.</th>
+								<th>Email</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item : ${list}">
+								<td th:text="${item.userId}"></td>
+								<td th:text="${item.firstName}"></td>
+								<td th:text="${item.lastName}"></td>
+								<td th:text="${item.title}"></td>
+								<td th:text="${item.contactPhNo}"></td>
+								<td th:text="${item.emailId}"></td>
+								<td><a class="btn  btn-success btn-xs"
+									th:href="@{/user/create(Id= ${item.id})}"><i
+										class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> | <a
+									class="btn btn-info btn-xs"
+									th:href="@{/user/details(Id= ${item.id})}"><i
+										class="fa fa-list" aria-hidden="true"></i> Details</a> | <a
+									class="btn  btn-danger btn-xs" href="javascript:void"
+									th:onclick="'deleteUser(' + ${item.id} + ',this);'">Delete</a></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<footer></footer>
+<th:block layout:fragment="script">
+	<script>
+		$('#table1').DataTable();
+		function deleteUser(id, sender) {
+			showConfirmMsg("Delete User", "Are you sure to delete ?",
+					"Yes Delete", function() {
+						var token = $("[name='_csrf']").val();
+						deleteByAjax('/user/delete?Id=' + id, token, function(
+								result) {
+							if (result.status == "SUCCESS") {
+								$(sender).closest('tr').remove();
+								deleteMessage("Delete success", true);
+							} else {
+								deleteMessage("Delete failed", false);
+							}
+						});
+					})
+		}
+	</script>
+</th:block>
+</html>

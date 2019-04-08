@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+</head>
+<body>
+	<div layout:fragment="content">
+Logged user: <span sec:authentication="name">Bob</span>
+<!-- Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> -->
+<!-- 
+<div sec:authorize="isAuthenticated()">
+  This content is only shown to authenticated users.
+</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+  This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+  This content is only shown to users.
+</div>
+<div sec:authorize="hasRole('SYS_Admin')">
+  This content is only shown to users.SYS_AdminSYS_Admin
+</div> -->
+	</div>
+</body>
+<footer></footer>
+<th:block layout:fragment="script">
+	<script>
+		
+	</script>
+</th:block>
+</html>

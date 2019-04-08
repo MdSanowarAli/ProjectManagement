@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>User</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Update User</h3>
+				</div>
+				<form class="form-horizontal" data-validator="validator"
+					th:action="@{/user/saveContact}" th:object="${user}" method="POST"
+					id="companyFrom">
+					<input type="hidden" th:field="*{id}" />
+					<div class="box-body">
+						<div class="form-group">
+							<label class="control-label col-md-3">User Name </label>
+							<div class="col-md-4">
+								<input type="text" th:field="*{userId}"
+									class="form-control text-box single-line required" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">First Name </label>
+							<div class="col-md-4">
+								<input type="text" th:field="*{firstName}"
+									class="form-control text-box single-line required" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Last Name </label>
+							<div class="col-md-4">
+								<input type="text" th:field="*{lastName}"
+									class="form-control text-box single-line required" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Title </label>
+							<div class="col-md-4">
+								<input type="text" th:field="*{title}"
+									class="form-control text-box single-line" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Contact Ph. No. </label>
+							<div class="col-md-4">
+								<input type="text" th:field="*{contactPhNo}"
+									class="form-control text-box single-line required" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Email</label>
+							<div class="col-md-4">
+								<input type="email" th:field="*{emailId}"
+									class="form-control text-box single-line required" />
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label class="control-label col-md-3">Password </label>
+							<div class="col-md-4">
+								<input type="password" th:field="*{password}"
+									class="form-control text-box single-line required" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Confirm Password </label>
+							<div class="col-md-4">
+								<input type="password" id="confirmPassword"
+									th:field="*{confirmPassword}"
+									class="form-control text-box single-line required" /> <span
+									class="passwordNotMattch" style="display: none; color: red;">Please
+									Enter Same Password </span>
+							</div>
+						</div> -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Status</label>
+							<div class="col-md-7">
+								<select th:field="*{status}" class="form-control">
+									<option value="">Select</option>
+									<option value="Active">Active</option>
+									<option value="InActive">InActive</option>
+								</select>
+							</div>
+						</div>
+						<hr />
+					</div>
+					<div class="box-footer">
+						<div class="col-md-4"></div>
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check" aria-hidden="true"></i> Update
+						</button>
+						|
+						<button type="button" onclick="ResetInputs('.box-body');"
+							class="btn btn-primary">
+							<i class="fa fa-refresh" aria-hidden="true"></i> Reset
+						</button>
+						| <a href="/user" class="btn btn-primary"><i
+							class="fa fa-arrow-left" aria-hidden="true"></i> Back to List</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<footer></footer>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$(function() {
+			initFormSubmit();
+			InitErrorChange();
+		})
+		
+		/*]]>*/
+	</script>
+</th:block>
+</html>
